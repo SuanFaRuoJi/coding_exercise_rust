@@ -1,8 +1,8 @@
 use std::collections::HashMap;
-use std::borrow::BorrowMut;
 
-pub struct WordDistance {
-    occurrences: HashMap<String, Vec<usize>>
+struct WordDistance {
+    distance: HashMap<String, HashMap<String, i32>>,
+    latest: HashMap<String, i32>
 }
 
 
@@ -12,47 +12,63 @@ pub struct WordDistance {
  */
 impl WordDistance {
 
-    pub fn new(words: Vec<String>) -> Self {
-        let mut result = WordDistance {
-            occurrences: HashMap::new()
+    fn new(words: Vec<String>) -> Self {
+        let mut object: WordDistance = WordDistance {
+          distance: HashMap::new(),
+            latest: HashMap::new()
         };
-        let mut index: usize = 0;
-        for word in &words {
-            if !result.occurrences.contains_key(word) {
-                result.occurrences.insert(word.clone(), Vec::new());
+        let counter = 0;
+        for word in words {
+            for (key, index) in object.latest.iter() {
+                let cur_short = object.shortest(key.clone(), word.clone());
+                let cur_dist = counter - index;
+                if cur_short == -1 || cur_dist < cur_short {
+                    match object.distance.get_mut(key) {
+                        None => {
+                            let to_insert = HashMap::new();
+                            to_insert.insert(word.clone(), cur_dist);
+                            object.distance.insert(key.clone(), to_insert);
+                        },
+                        Some(dists) => dists.insert(word.clone(), cur_dist)
+                    }
+                }
             }
-            match result.occurrences.get_mut(word) {
-                Some(vec) => vec.push(index),
-                None => {}
-            }
-            index += 1;
+            object.latest.insert(word.clone(), counter);
+            counter += 1;
         }
-        result
+        object
     }
 
-    pub fn shortest(&self, word1: String, word2: String) -> i32 {
-        let mut index_1: usize = 0;
-        let mut index_2: usize = 0;
-        let occurrence_1: &Vec<usize> = self.occurrences.get(&word1).unwrap();
-        let occurrence_2: &Vec<usize> = self.occurrences.get(&word2).unwrap();
-        let mut min: i32 = -1;
-        while index_1 != occurrence_1.len() && index_2 != occurrence_2.len() {
-            let cur_1: usize = occurrence_1[index_1];
-            let cur_2: usize = occurrence_2[index_2];
-            if cur_1 > cur_2 {
-                let cur = (cur_1 - cur_2) as i32;
-                if cur < min || min == -1 {
-                    min = cur;
-                }
-                index_2 += 1;
-            } else {
-                let cur = (cur_2 - cur_1) as i32;
-                if cur < min || min == -1 {
-                    min = cur;
-                }
-                index_1 += 1;
-            }
+    fn shortest(&self, word1: String, word2: String) -> i32 {
+        if word1 == word2 {
+            return 0;
         }
-        min
+        let dist1 = match self.distance.get(&word1) {
+            None => -1,
+            Some(dists) => match dists.get(&word2) {
+                None => -1,
+                Some(dist) => dist
+            }
+        };
+        let dist2 = match self.distance.get(&word2) {
+            None => -1,
+            Some(dists) => match dists.get(&word1) {
+                None => -1,
+                Some(dist) => dist
+            }
+        };
+        if dist1 == -1  {
+            return dist2;
+        }
+        if dist2 == -1 {
+            return dist1;
+        }
+        return dist1.min(dist2);
     }
 }
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * let obj = WordDistance::new(words);
+ * let ret_1: i32 = obj.shortest(word1, word2);
+ */
