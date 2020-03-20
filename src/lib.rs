@@ -17,6 +17,11 @@ pub mod remove_duplicate_letters_131;
 pub mod max_points_on_a_line_149;
 pub mod nested_list_weight_sum_2_364;
 pub mod factor_combinations_254;
+pub mod find_leaves_of_binary_tree_366;
+pub mod evaluate_reverse_polish_notation_150;
+pub mod tree_node;
+pub mod valid_triangle_number_611;
+pub mod shortest_word_distance_3;
 
 #[cfg(test)]
 mod tests {
@@ -66,5 +71,31 @@ mod tests {
 			vec![2,8],
 			vec![4,4]
 		]);
+	}
+
+	#[test]
+	fn test_150() {
+		use crate::evaluate_reverse_polish_notation_150::eval_rpn as test_func;
+		assert_eq!(test_func(vec![
+			"1".to_string(), "2".to_string(), "*".to_string()
+		]), 2);
+	}
+
+	#[test]
+	fn test_611() {
+		use crate::valid_triangle_number_611::triangle_number as test_func;
+		assert_eq!(test_func(vec![1,2,3,4,5]), 3);
+	}
+
+	#[test]
+	fn test_245() {
+		use crate::shortest_word_distance_3::shortest_word_distance as test_func;
+		assert_eq!(test_func(vec![
+			String::from("practice"),
+			String::from("makes"),
+			String::from("perfect"),
+			String::from("coding"),
+			String::from("makes"),
+		], String::from("makes"), String::from("coding")), 1);
 	}
 }
