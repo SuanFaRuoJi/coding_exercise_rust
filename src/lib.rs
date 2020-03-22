@@ -22,6 +22,8 @@ pub mod evaluate_reverse_polish_notation_150;
 pub mod tree_node;
 pub mod valid_triangle_number_611;
 pub mod shortest_word_distance_3;
+pub mod graph_valid_tree_261;
+pub mod longest_palindrome_subsequence_516;
 
 #[cfg(test)]
 mod tests {
@@ -98,4 +100,23 @@ mod tests {
 			String::from("makes"),
 		], String::from("makes"), String::from("coding")), 1);
 	}
+
+    #[test]
+    fn test_261() {
+        use crate::graph_valid_tree_261::valid_tree as test_func;
+        assert_eq!(test_func(6, vec![
+            vec![0,1],
+            vec![0,2],
+            vec![0,3],
+            vec![0,5],
+            vec![2,4]
+        ]), true);
+    }
+
+    #[test]
+    fn test_516() {
+        use crate::longest_palindrome_subsequence_516::longest_palindrome_subseq as test_func;
+        assert_eq!(test_func(String::from("bbbab")), 4);
+        assert_eq!(test_func(String::from("babcbac")), 5);
+    }
 }

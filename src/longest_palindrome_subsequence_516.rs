@@ -5,30 +5,7 @@ pub fn longest_palindrome_subseq(s: String) -> i32 {
     }
     let length: usize = s.len();
     let mut dp: Vec<Vec<i32>> = vec![vec![0;length];length];
-    let mut index = 0;
-    while index < length {
-        let mut left: usize = 0;
-        let mut right: usize = index;
-        while left < length && right < length {
-            if indices[left] == indices[right] {
-                if left+2 <= right {
-                    dp[left][right] = dp[left+1][right-1] + 2;
-                } else {
-                    if left == right {
-                        dp[left][right] = 1;
-                    } else {
-                        dp[left][right] = 2;
-                    }
-                }
-            } else {
-                dp[left][right] = i32::max(dp[left][right-1], dp[left+1][right]);
-            }
-            left += 1;
-            right += 1;
-        }
-        index += 1;
-    }
-    dp[0][length-1]
+    return backtrace(&mut indices, 0, s.len()-1, &mut dp);
 }
 
 fn backtrace(string: &Vec<i32>, left: usize, right: usize, dp: &mut Vec<Vec<i32>>) -> i32 {
