@@ -24,6 +24,8 @@ pub mod valid_triangle_number_611;
 pub mod shortest_word_distance_3;
 pub mod graph_valid_tree_261;
 pub mod longest_palindrome_subsequence_516;
+pub mod all_O_one_data_structure_432;
+pub mod shortest_word_distance_2_244;
 
 #[cfg(test)]
 mod tests {
@@ -119,4 +121,18 @@ mod tests {
         assert_eq!(test_func(String::from("bbbab")), 4);
         assert_eq!(test_func(String::from("babcbac")), 5);
     }
+
+	#[test]
+	fn test_244() {
+		use crate::shortest_word_distance_2_244::WordDistance;
+		let test_obj: WordDistance = WordDistance::new(vec![
+			String::from("practice"),
+			String::from("makes"),
+			String::from("perfect"),
+			String::from("coding"),
+			String::from("makes")
+		]);
+		assert_eq!(test_obj.shortest(String::from("coding"), String::from("practice")), 3);
+		assert_eq!(test_obj.shortest(String::from("coding"), String::from("makes")), 1);
+	}
 }
