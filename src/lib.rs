@@ -1,3 +1,6 @@
+use std::rc::Rc;
+use std::cell::RefCell;
+
 pub mod main_module {
 	pub fn show_list() {
 		let solved_problems: [&str;1] = [
@@ -13,6 +16,7 @@ pub mod main_module {
 
 }
 
+pub mod ds;
 pub mod remove_duplicate_letters_131;
 pub mod max_points_on_a_line_149;
 pub mod nested_list_weight_sum_2_364;
@@ -26,9 +30,13 @@ pub mod graph_valid_tree_261;
 pub mod longest_palindrome_subsequence_516;
 pub mod all_O_one_data_structure_432;
 pub mod shortest_word_distance_2_244;
+pub mod kth_smallest_elements_in_a_bst_230;
 
 #[cfg(test)]
 mod tests {
+	use std::cell::RefCell;
+	use std::rc::Rc;
+
 	#[test]
 	fn test_131 () {
 		use crate::remove_duplicate_letters_131::remove_duplicate_letters as test_func;
@@ -125,6 +133,7 @@ mod tests {
 	#[test]
 	fn test_244() {
 		use crate::shortest_word_distance_2_244::WordDistance;
+
 		let test_obj: WordDistance = WordDistance::new(vec![
 			String::from("practice"),
 			String::from("makes"),
@@ -134,5 +143,16 @@ mod tests {
 		]);
 		assert_eq!(test_obj.shortest(String::from("coding"), String::from("practice")), 3);
 		assert_eq!(test_obj.shortest(String::from("coding"), String::from("makes")), 1);
+	}
+
+	#[test]
+	fn test_230() {
+		use crate::kth_smallest_elements_in_a_bst_230::kth_smallest as test_func;
+		use crate::ds::TreeNode;
+		let test_obj = Some(Rc::new(RefCell::new(TreeNode {val:1,
+			left: Some(Rc::new(RefCell::new(TreeNode {val:0, left: None, right: None}))),
+			right: None
+		})));
+		assert_eq!(test_func(test_obj, 0), 0);
 	}
 }
