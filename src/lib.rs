@@ -26,6 +26,8 @@ pub mod graph_valid_tree_261;
 pub mod longest_palindrome_subsequence_516;
 pub mod all_O_one_data_structure_432;
 pub mod shortest_word_distance_2_244;
+pub mod group_shifted_strings_249;
+pub mod count_univalue_subtrees_250;
 
 #[cfg(test)]
 mod tests {
@@ -135,4 +137,24 @@ mod tests {
 		assert_eq!(test_obj.shortest(String::from("coding"), String::from("practice")), 3);
 		assert_eq!(test_obj.shortest(String::from("coding"), String::from("makes")), 1);
 	}
+
+	#[test]
+    fn test_249() {
+        use crate::group_shifted_strings_249::group_strings as test_func;
+        assert_eq!(test_func(vec![
+            String::from("abc"),
+			String::from("bcd"),
+			String::from("acef"),
+			String::from("xyz"),
+			String::from("az"),
+			String::from("ba"),
+			String::from("a"),
+			String::from("z"),
+		]), vec![
+			vec![String::from("abc"), String::from("bcd"), String::from("acef")],
+			vec![String::from("az"),String::from("ba")],
+			vec![String::from("acef")],
+			vec![String::from("a"), String::from("z")],
+		]);
+    }
 }
