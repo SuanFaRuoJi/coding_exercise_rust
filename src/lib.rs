@@ -28,6 +28,7 @@ pub mod all_O_one_data_structure_432;
 pub mod shortest_word_distance_2_244;
 pub mod group_shifted_strings_249;
 pub mod count_univalue_subtrees_250;
+pub mod preorder_verification_255;
 
 #[cfg(test)]
 mod tests {
