@@ -33,6 +33,7 @@ pub mod three_sum_smaller;
 pub mod ugly_number_2;
 pub mod maximal_square_221;
 pub mod shortest_subarray_with_sum_at_least_k_862;
+pub mod max_sum_of_reactangle_no_larger_than_k_363;
 
 #[cfg(test)]
 mod tests {
