@@ -29,6 +29,10 @@ pub mod shortest_word_distance_2_244;
 pub mod group_shifted_strings_249;
 pub mod count_univalue_subtrees_250;
 pub mod preorder_verification_255;
+pub mod three_sum_smaller;
+pub mod ugly_number_2;
+pub mod maximal_square_221;
+pub mod shortest_subarray_with_sum_at_least_k_862;
 
 #[cfg(test)]
 mod tests {
@@ -158,4 +162,10 @@ mod tests {
 			vec![String::from("a"), String::from("z")],
 		]);
     }
+
+	#[test]
+	fn test_259() {
+		use crate::three_sum_smaller::three_sum_smaller as test_func;
+		assert_eq!(test_func(vec![-2,0,1,3], 2), 2);
+	}
 }
